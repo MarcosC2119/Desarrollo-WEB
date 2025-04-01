@@ -3,131 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="El Diario Digital - Noticias actualizadas">
     <title>Periódico El Digital</title>
-    
-    <!-- Favicon -->
     <link rel="icon" href="assets/images/Icon D.png" type="image/x-icon">
-    
-    <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/main.css">
-    
-    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/news.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar container">
-            <div class="navbar__logo">
-                <h1>Diario El Digital</h1>
-            </div>
-            <button class="navbar__toggle" aria-label="Menú">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="navbar__menu">
-                <a href="#inicio" class="navbar__link active">Inicio</a>
-                <a href="#noticias" class="navbar__link">Noticias</a>
-                <a href="#deportes" class="navbar__link">Deportes</a>
-                <a href="#cultura" class="navbar__link">Cultura</a>
-                <a href="#tecnologia" class="navbar__link">Tecnología</a>
-            </div>
-            <div class="navbar__auth">
-                <button class="btn btn--login">Iniciar Sesión</button>
-                <a href="registro.html" class="btn btn--primary">Crear Cuenta</a>
-            </div>
-        </nav>
-    </header>
+    <div id="header"></div>
 
     <main>
         <section class="hero">
-            <div class="hero__content container">
-                <h2 class="hero__title">Las últimas noticias del mundo al instante</h2>
-                <p class="hero__subtitle">Mantente informado con las noticias más relevantes del día</p>
+            <div class="hero-content">
+                <h2>Las últimas noticias del mundo al instante</h2>
+                <p>Mantente informado con las noticias más relevantes del día</p>
             </div>
         </section>
 
-        <section class="news container">
-            <h2 class="section-title">Noticias Destacadas</h2>
-            <div class="news__grid">
+        <section class="featured-news">
+            <h2>Noticias Destacadas</h2>
+            <div class="news-grid">
                 <article class="news-card">
-                    <img class="news-card__image" src="assets/images/noticia1.jpg" alt="Tres Nombres Comunes podcast">
-                    <div class="news-card__content">
-                        <h3 class="news-card__title">Tres Nombres Comunes podcast</h3>
-                        <p class="news-card__text">Bienvenidos a "Motores en Acción", el podcast donde desglosamos los secretos de los motores de bases de datos...</p>
-                        <a href="https://www.youtube.com/watch?v=zdRo7oSyA00&list=LL" class="btn btn--link">Ver ep1</a>
+                    <img src="assets/images/noticia1.jpg" alt="Noticia 1">
+                    <div class="news-content">
+                        <h3>Tres Nombres Comunes podcast</h3>
+                        <p>Bienvenidos a "Motores en Acción", el podcast donde desglosamos los secretos de los motores de bases de datos. ¡Prepárate para aprender y optimizar tus proyectos!...</p>
+                        <a href="https://www.youtube.com/watch?v=zdRo7oSyA00&list=LL" class="read-more">Ver ep1</a>
                     </div>
                 </article>
                 <article class="news-card">
-                    <img class="news-card__image" src="assets/images/imagen1.jpg" alt="Tesla presenta a Optimus">
-                    <div class="news-card__content">
-                        <h3 class="news-card__title">Tesla presenta a Optimus</h3>
-                        <p class="news-card__text">El robot humanoide de Tesla, se convirtió en el protagonista del evento de presentación del Cybercab y promete revolucionar los servicios de asistencia empresarial y doméstica en todo el mundo....</p>
-                        <a href="#" class="btn btn--link">Leer más</a>
+                    <img src="assets/images/imagen1.jpg" alt="Noticia 2">
+                    <div class="news-content">
+                        <h3>Tesla presenta a Optimus</h3>
+                        <p>El robot humanoide de Tesla, se convirtió en el protagonista del evento de presentación del Cybercab y promete revolucionar los servicios de asistencia empresarial y doméstica en todo el mundo....</p>
+                        <a href="#" class="read-more">Leer más</a>
                     </div>
                 </article>
                 <article class="news-card">
-                    <img class="news-card__image" src="assets/images/imagen3.jpg" alt="Campeón chileno TCS CodeVita">
-                    <div class="news-card__content">
-                        <h3 class="news-card__title">Campeón chileno TCS CodeVita</h3>
-                        <p class="news-card__text">El estudiante chileno Martín Andrighetti fue el ganador de la versión 2024 de TCS CodeVita, el mayor concurso de programación del mundo...</p>
-                        <a href="#" class="btn btn--link">Leer más</a>
+                    <img src="assets/images/imagen3.jpg" alt="Noticia 3">
+                    <div class="news-content">
+                        <h3>Campeón chileno TCS CodeVita</h3>
+                        <p>El estudiante chileno Martín Andrighetti fue el ganador de la versión 2024 de TCS CodeVita, el mayor concurso de programación del mundo...</p>
+                        <a href="#" class="read-more">Leer más</a>
+                    </div>
+                </article>
+                <article class="news-card">
+                    <img src="assets/images/tu-nueva-imagen.jpg" alt="Título de la noticia">
+                    <div class="news-content">
+                        <h3>Título de la noticia</h3>
+                        <p>Descripción de la noticia...</p>
+                        <a href="#" class="read-more">Leer más</a>
                     </div>
                 </article>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="footer__content container">
-            <div class="footer__section">
-                <h3 class="footer__title">Sobre Nosotros</h3>
-                <p>El Diario Digital - Tu fuente confiable de noticias</p>
-            </div>
-            <div class="footer__section">
-                <h3 class="footer__title">Enlaces Rápidos</h3>
-                <ul class="footer__links">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#noticias">Noticias</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-            </div>
-            <div class="footer__section">
-                <h3 class="footer__title">Síguenos</h3>
-                <div class="footer__social">
-                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer__bottom">
-            <p>&copy; 2024 El Diario Digital. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <div id="footer"></div>
 
-    <div class="modal" id="loginModal" aria-hidden="true">
-        <div class="modal__content">
-            <button class="modal__close" aria-label="Cerrar">&times;</button>
-            <h2 class="modal__title">Iniciar Sesión</h2>
-            <form class="form" id="loginForm">
-                <div class="form__group">
-                    <label class="form__label" for="loginEmail">Correo Electrónico</label>
-                    <input class="form__input" type="email" id="loginEmail" required>
-                </div>
-                <div class="form__group">
-                    <label class="form__label" for="loginPassword">Contraseña</label>
-                    <input class="form__input" type="password" id="loginPassword" required>
-                </div>
-                <button type="submit" class="btn btn--primary btn--block">Acceder</button>
-                <button type="button" class="btn btn--secondary btn--block">Recuperar Contraseña</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="assets/js/utils.js"></script>
-    <script src="assets/js/components/modal.js"></script>
-    <script src="assets/js/components/navigation.js"></script>
+    <script src="assets/js/components.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html> 
