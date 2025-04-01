@@ -41,7 +41,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Mobile menu toggle (if needed in the future)
+// Mobile menu toogle
 const createMobileMenu = () => {
     const navbar = document.querySelector('.navbar');
     const navLinks = document.querySelector('.nav-links');
@@ -61,6 +61,6 @@ const createMobileMenu = () => {
     }
 };
 
-// Call mobile menu function on load and resize
+// llamada del menú móvil
 window.addEventListener('load', createMobileMenu);
 window.addEventListener('resize', createMobileMenu); 
