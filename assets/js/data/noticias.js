@@ -28,7 +28,17 @@ const noticias = [
         fecha: "2024-03-30",
         categoria: "Educación",
         destacada: true
-    }
+    },
+    {
+        id: 4,
+        titulo: "¿Se adelanta o se atrasa el reloj por el cambio de hora en Chile?",
+        descripcion: "Este fin de semana se realiza el primer cambio de hora en Chile, momento que marca el inicio del horario de invierno y determina el nuevo escenario en gran parte del territorio nacional.",
+        imagen: "https://www.latercera.com/resizer/v2/MMYPUYV3ZZHOFAFGWLWMEU3BIQ.jpg?quality=80&smart=true&auth=ebf0f9a281e1f32e946fe7ed9c6b38d37f57eac7bc09a99ce53d93407e96fca6&width=690&height=502",
+        categoria: "Cultura",
+        fecha: "2025-03-31",
+        link: "https://www.latercera.com/servicios/noticia/se-adelanta-o-se-atrasa-el-reloj-por-el-cambio-de-hora-en-chile/",
+        destacada: false
+      }
 ];
 
 // Exportar las noticias para que sean accesibles desde otros archivos
