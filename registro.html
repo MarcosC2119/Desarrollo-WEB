@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Noticia - El Digital</title>
+    <meta name="description" content="Panel de administración - El Diario Digital">
+    <meta name="keywords" content="admin, noticias, gestión, publicación">
+    <meta name="author" content="Tu Nombre">
+    
+    <title>Agregar Noticia - El Diario Digital</title>
+    
+    <!-- Favicon -->
     <link rel="icon" href="assets/images/Icon D.png" type="image/x-icon">
+    
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/forms.css">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -16,36 +26,58 @@
 
     <main class="form-page">
         <div class="form-container">
-            <h2>Agregar Nueva Noticia</h2>
+            <h2>
+                <i class="fas fa-newspaper"></i>
+                Agregar Nueva Noticia
+            </h2>
+            
+            <!-- Formulario de Noticias -->
             <form id="newsForm" class="news-form">
+                <!-- Título -->
                 <div class="form-group">
                     <label for="titulo">
                         <i class="fas fa-heading"></i>
                         Título de la Noticia
                     </label>
-                    <input type="text" id="titulo" name="titulo" required 
-                           placeholder="Ingresa el título de la noticia">
+                    <input type="text" 
+                           id="titulo" 
+                           name="titulo" 
+                           required 
+                           maxlength="100"
+                           placeholder="Ingresa el título de la noticia"
+                           autocomplete="off">
                 </div>
 
+                <!-- Descripción -->
                 <div class="form-group">
                     <label for="descripcion">
                         <i class="fas fa-align-left"></i>
                         Descripción
                     </label>
-                    <textarea id="descripcion" name="descripcion" required 
-                              placeholder="Ingresa la descripción de la noticia"
-                              rows="4"></textarea>
+                    <textarea id="descripcion" 
+                              name="descripcion" 
+                              required 
+                              rows="4"
+                              maxlength="500"
+                              placeholder="Ingresa la descripción de la noticia"></textarea>
+                    <small class="character-count">0/500 caracteres</small>
                 </div>
 
+                <!-- URL de la Imagen -->
                 <div class="form-group">
                     <label for="imagen">
                         <i class="fas fa-image"></i>
                         URL de la Imagen
                     </label>
-                    <input type="url" id="imagen" name="imagen" required 
+                    <input type="url" 
+                           id="imagen" 
+                           name="imagen" 
+                           required 
                            placeholder="https://ejemplo.com/imagen.jpg">
+                    <div class="image-preview" id="imagePreview"></div>
                 </div>
 
+                <!-- Categoría y Fecha -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="categoria">
@@ -57,6 +89,7 @@
                             <option value="Tecnología">Tecnología</option>
                             <option value="Deportes">Deportes</option>
                             <option value="Cultura">Cultura</option>
+                            <option value="Educación">Educación</option>
                             <option value="Política">Política</option>
                             <option value="Economía">Economía</option>
                         </select>
@@ -67,19 +100,27 @@
                             <i class="fas fa-calendar"></i>
                             Fecha
                         </label>
-                        <input type="date" id="fecha" name="fecha" required>
+                        <input type="date" 
+                               id="fecha" 
+                               name="fecha" 
+                               required>
                     </div>
                 </div>
 
+                <!-- URL de la Noticia -->
                 <div class="form-group">
                     <label for="link">
                         <i class="fas fa-link"></i>
                         URL de la Noticia
                     </label>
-                    <input type="url" id="link" name="link" required 
+                    <input type="url" 
+                           id="link" 
+                           name="link" 
+                           required 
                            placeholder="https://ejemplo.com/noticia">
                 </div>
 
+                <!-- Noticia Destacada -->
                 <div class="form-group checkbox-group">
                     <input type="checkbox" id="destacada" name="destacada">
                     <label for="destacada">
@@ -88,6 +129,7 @@
                     </label>
                 </div>
 
+                <!-- Botones de Acción -->
                 <div class="form-actions">
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-plus-circle"></i>
@@ -100,9 +142,12 @@
                 </div>
             </form>
 
-            <!-- Contenedor para previsualizar el JSON -->
+            <!-- Vista Previa del JSON -->
             <div id="jsonPreview" class="json-preview">
-                <h3>Vista Previa del JSON</h3>
+                <h3>
+                    <i class="fas fa-code"></i>
+                    Vista Previa del JSON
+                </h3>
                 <pre><code></code></pre>
             </div>
         </div>
@@ -110,6 +155,7 @@
 
     <div id="footer"></div>
 
+    <!-- Scripts -->
     <script src="assets/js/data/noticias.js"></script>
     <script src="assets/js/auth.js"></script>
     <script src="assets/js/main.js"></script>
@@ -129,6 +175,30 @@
                 })
                 .join(',\n') + "\n    }";
         }
+
+        // Contador de caracteres para la descripción
+        document.getElementById('descripcion').addEventListener('input', function() {
+            const count = this.value.length;
+            const maxLength = this.getAttribute('maxlength');
+            document.querySelector('.character-count').textContent = 
+                `${count}/${maxLength} caracteres`;
+        });
+
+        // Vista previa de imagen
+        document.getElementById('imagen').addEventListener('input', function() {
+            const preview = document.getElementById('imagePreview');
+            const url = this.value;
+
+            if (url) {
+                preview.innerHTML = `
+                    <img src="${url}" alt="Vista previa" 
+                         onerror="this.src='assets/images/placeholder.jpg'">
+                `;
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+        });
 
         // Función para previsualizar el JSON
         function previewJSON() {
@@ -165,12 +235,13 @@
                 destacada: formData.get('destacada') === 'on'
             };
 
-            // Copiar al portapapeles con el formato correcto
+            // Copiar al portapapeles
             navigator.clipboard.writeText(formatJSON(noticiaData))
                 .then(() => {
                     alert('JSON copiado al portapapeles');
                     this.reset();
                     document.getElementById('jsonPreview').style.display = 'none';
+                    document.getElementById('imagePreview').style.display = 'none';
                 })
                 .catch(err => {
                     console.error('Error al copiar al portapapeles:', err);

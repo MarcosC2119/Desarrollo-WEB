@@ -1,8 +1,26 @@
+/**
+ * Base de datos de noticias
+ * Estructura de datos principal para el contenido del sitio
+ * @typedef {Object} Noticia
+ * @property {number} id - Identificador único de la noticia
+ * @property {string} titulo - Título de la noticia
+ * @property {string} descripcion - Descripción o contenido de la noticia
+ * @property {string} imagen - URL de la imagen asociada
+ * @property {string} link - URL de la noticia completa
+ * @property {string} fecha - Fecha de publicación (YYYY-MM-DD)
+ * @property {string} categoria - Categoría de la noticia
+ * @property {boolean} destacada - Indica si es una noticia destacada
+ */
+
+/**
+ * Array de noticias del sitio
+ * @type {Noticia[]}
+ */
 const noticias = [
     {
         id: 1,
         titulo: "Tres Nombres Comunes podcast",
-        descripcion: "Bienvenidos a \"Tres Nombres Comunes\", el podcast donde desglosamos los secretos de los motores de bases de datos. ¡Prepárate para aprender y optimizar tus proyectos!...",
+        descripcion: "Bienvenidos a \"Motores en Acción\", el podcast donde desglosamos los secretos de los motores de bases de datos. ¡Prepárate para aprender y optimizar tus proyectos!...",
         imagen: "assets/images/noticia1.jpg",
         link: "https://www.youtube.com/watch?v=zdRo7oSyA00&list=LL",
         fecha: "2024-04-02",
@@ -41,7 +59,44 @@ const noticias = [
       }
 ];
 
-// Exportar las noticias para que sean accesibles desde otros archivos
+/**
+ * Validación de la estructura de las noticias
+ * Asegura que todas las noticias cumplan con el formato requerido
+ */
+function validarNoticias() {
+    const camposRequeridos = ['id', 'titulo', 'descripcion', 'imagen', 'link', 'fecha', 'categoria', 'destacada'];
+    
+    noticias.forEach(noticia => {
+        camposRequeridos.forEach(campo => {
+            if (!(campo in noticia)) {
+                console.error(`Error: La noticia con ID ${noticia.id} no tiene el campo requerido "${campo}"`);
+            }
+        });
+
+        // Validar tipos de datos
+        if (typeof noticia.id !== 'number') console.error(`Error: ID debe ser número en noticia ${noticia.id}`);
+        if (typeof noticia.titulo !== 'string') console.error(`Error: Título debe ser texto en noticia ${noticia.id}`);
+        if (typeof noticia.descripcion !== 'string') console.error(`Error: Descripción debe ser texto en noticia ${noticia.id}`);
+        if (typeof noticia.destacada !== 'boolean') console.error(`Error: Destacada debe ser booleano en noticia ${noticia.id}`);
+        
+        // Validar fecha
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(noticia.fecha)) {
+            console.error(`Error: Formato de fecha inválido en noticia ${noticia.id}`);
+        }
+    });
+}
+
+// Ejecutar validación en desarrollo
+if (process.env.NODE_ENV !== 'production') {
+    validarNoticias();
+}
+
+/**
+ * Exportar las noticias y tipos para uso en otros módulos
+ */
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = noticias;
+    module.exports = {
+        noticias,
+        validarNoticias
+    };
 } 

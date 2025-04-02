@@ -1,4 +1,7 @@
-// Componentes reutilizables
+/**
+ * Componentes principales de la interfaz
+ * Utilizamos un patrón Module para encapsular los componentes reutilizables
+ */
 const components = {
     header: `
         <header>
@@ -10,7 +13,7 @@ const components = {
                     <div class="nav-links">
                         <a href="index.html" class="nav-link">Inicio</a>
                         <div class="category-filters">
-                            <!-- Los filtros se generarán dinámicamente -->
+                            <!-- Filtros dinámicos -->
                         </div>
                     </div>
                     <div class="auth-buttons">
@@ -35,7 +38,6 @@ const components = {
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="#">Noticias</a></li>
-                        <li><a href="#">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -48,38 +50,21 @@ const components = {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; ${new Date().getFullYear()} Diario El Digital. Todos los derechos reservados.</p>
+                <p>&copy; ${new Date().getFullYear()} Diario El Digital</p>
             </div>
         </footer>
     `
 };
 
-// Función para crear el menú móvil
-function createMobileMenu() {
-    const navbar = document.querySelector('.navbar');
-    const mobileMenuBtn = document.createElement('button');
-    mobileMenuBtn.className = 'mobile-menu-btn';
-    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    
-    mobileMenuBtn.addEventListener('click', () => {
-        navbar.classList.toggle('mobile-active');
-    });
-    
-    navbar.insertBefore(mobileMenuBtn, navbar.firstChild);
-}
-
-// Gestor de noticias
+/**
+ * Gestor de noticias
+ * Implementa el patrón Module para manejar la lógica de noticias
+ */
 const newsManager = {
-    // Obtener todas las noticias
     getAllNoticias: () => noticias,
-
-    // Obtener noticias destacadas
     getDestacadas: () => noticias.filter(noticia => noticia.destacada),
-
-    // Obtener noticias por categoría
     getByCategoria: (categoria) => noticias.filter(noticia => noticia.categoria === categoria),
 
-    // Formatear fecha
     formatearFecha: (fecha) => {
         return new Date(fecha).toLocaleDateString('es-ES', {
             year: 'numeric',
@@ -88,23 +73,23 @@ const newsManager = {
         });
     },
 
-    // Generar HTML de una noticia
     generarNoticiaHTML: (noticia) => `
         <article class="news-card">
-            <img src="${noticia.imagen}" alt="${noticia.titulo}">
+            <img src="${noticia.imagen}" alt="${noticia.titulo}" loading="lazy">
             <div class="news-content">
                 <span class="news-category">${noticia.categoria}</span>
                 <h3>${noticia.titulo}</h3>
                 <p>${noticia.descripcion}</p>
                 <div class="news-footer">
                     <span class="news-date">${newsManager.formatearFecha(noticia.fecha)}</span>
-                    <a href="${noticia.link}" class="read-more" target="_blank">Leer más</a>
+                    <a href="${noticia.link}" class="read-more" target="_blank" rel="noopener">
+                        Leer más
+                    </a>
                 </div>
             </div>
         </article>
     `,
 
-    // Renderizar noticias en el grid
     renderNoticias: (noticiasArray = noticias) => {
         const newsGrid = document.querySelector('.news-grid');
         if (!newsGrid) return;
@@ -114,7 +99,6 @@ const newsManager = {
             .join('');
     },
 
-    // Inicializar filtros de categorías
     initFiltros: () => {
         const categorias = [...new Set(noticias.map(noticia => noticia.categoria))];
         const filtrosContainer = document.querySelector('.category-filters');
@@ -143,13 +127,30 @@ const newsManager = {
                 document.querySelectorAll('.category-filters .nav-link')
                     .forEach(btn => btn.classList.remove('active'));
                 link.classList.add('active');
-                const noticiasFiltradas = newsManager.getByCategoria(categoria);
-                newsManager.renderNoticias(noticiasFiltradas);
+                newsManager.renderNoticias(newsManager.getByCategoria(categoria));
             };
             filtrosContainer.appendChild(link);
         });
     }
 };
+
+/**
+ * Función para crear el menú móvil
+ * Maneja la responsividad del sitio
+ */
+function createMobileMenu() {
+    const navbar = document.querySelector('.navbar');
+    const mobileMenuBtn = document.createElement('button');
+    mobileMenuBtn.className = 'mobile-menu-btn';
+    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    mobileMenuBtn.setAttribute('aria-label', 'Menú móvil');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        navbar.classList.toggle('mobile-active');
+    });
+    
+    navbar.insertBefore(mobileMenuBtn, navbar.firstChild);
+}
 
 // Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', () => {
@@ -161,15 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Inicializar menú móvil
     createMobileMenu();
 
-    // Inicializar autenticación desde auth.js
+    // Inicializar autenticación
     if (typeof auth !== 'undefined') {
         auth.init();
     }
 
-    // Inicializar noticias si estamos en la página principal
+    // Inicializar noticias en la página principal
     if (document.querySelector('.news-grid')) {
         newsManager.renderNoticias();
         newsManager.initFiltros();
