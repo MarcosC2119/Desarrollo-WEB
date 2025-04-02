@@ -68,6 +68,17 @@
     background-color: #2980b9;
 }
 
+/* Mobile Menu Styles */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .navbar .container {
@@ -76,9 +87,19 @@
     }
 
     .nav-links {
+        display: none;
+        width: 100%;
         flex-direction: column;
-        text-align: center;
-        gap: 1rem;
+        align-items: center;
+        padding: 1rem 0;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .navbar .container {
+        flex-wrap: wrap;
     }
 
     .auth-buttons {
@@ -88,5 +109,9 @@
 
     .auth-buttons a {
         text-align: center;
+    }
+
+    .mobile-menu-btn {
+        display: block;
     }
 } 

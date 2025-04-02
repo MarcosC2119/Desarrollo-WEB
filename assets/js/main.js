@@ -41,26 +41,37 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Mobile menu toogle
+// Mobile menu toggle
 const createMobileMenu = () => {
     const navbar = document.querySelector('.navbar');
     const navLinks = document.querySelector('.nav-links');
     
-    if (window.innerWidth <= 768) {
+    // Solo crear el botón si no existe y estamos en móvil
+    if (window.innerWidth <= 768 && !document.querySelector('.mobile-menu-btn')) {
         const menuButton = document.createElement('button');
         menuButton.classList.add('mobile-menu-btn');
         menuButton.innerHTML = '<i class="fas fa-bars"></i>';
         
-        if (!document.querySelector('.mobile-menu-btn')) {
-            navbar.insertBefore(menuButton, navLinks);
-        }
+        // Insertar el botón antes de los enlaces de navegación
+        navbar.insertBefore(menuButton, navLinks);
         
+        // Agregar el event listener al botón
         menuButton.addEventListener('click', () => {
             navLinks.classList.toggle('show');
         });
+    } else if (window.innerWidth > 768) {
+        // Remover el botón si existe y estamos en desktop
+        const existingButton = document.querySelector('.mobile-menu-btn');
+        if (existingButton) {
+            existingButton.remove();
+        }
+        // Asegurarse de que los enlaces sean visibles en desktop
+        if (navLinks) {
+            navLinks.classList.remove('show');
+        }
     }
 };
 
-// llamada del menú móvil
-window.addEventListener('load', createMobileMenu);
+// Llamada del menú móvil
+document.addEventListener('DOMContentLoaded', createMobileMenu);
 window.addEventListener('resize', createMobileMenu); 
