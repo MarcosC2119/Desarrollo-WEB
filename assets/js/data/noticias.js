@@ -2,7 +2,7 @@ const noticias = [
     {
         id: 1,
         titulo: "Tres Nombres Comunes podcast",
-        descripcion: "Bienvenidos a \"Motores en Acción\", el podcast donde desglosamos los secretos de los motores de bases de datos. ¡Prepárate para aprender y optimizar tus proyectos!...",
+        descripcion: "Bienvenidos a \"Tres Nombres Comunes\", el podcast donde desglosamos los secretos de los motores de bases de datos. ¡Prepárate para aprender y optimizar tus proyectos!...",
         imagen: "assets/images/noticia1.jpg",
         link: "https://www.youtube.com/watch?v=zdRo7oSyA00&list=LL",
         fecha: "2024-04-02",

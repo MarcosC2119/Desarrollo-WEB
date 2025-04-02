@@ -3,64 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Cuenta - El Diario Digital</title>
+    <title>Agregar Noticia - El Digital</title>
     <link rel="icon" href="assets/images/Icon D.png" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/forms.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div id="header"></div>
 
-    <main class="registration-page">
-        <div class="registration-container">
-            <h2>Crear Cuenta</h2>
-            <form class="registration-form" action="#" method="POST">
+    <main class="form-page">
+        <div class="form-container">
+            <h2>Agregar Nueva Noticia</h2>
+            <form id="newsForm" class="news-form">
                 <div class="form-group">
-                    <label for="nombre">Nombre Completo</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <label for="titulo">
+                        <i class="fas fa-heading"></i>
+                        Título de la Noticia
+                    </label>
+                    <input type="text" id="titulo" name="titulo" required 
+                           placeholder="Ingresa el título de la noticia">
                 </div>
 
                 <div class="form-group">
-                    <label for="rut">RUT</label>
-                    <input type="text" id="rut" name="rut" required>
+                    <label for="descripcion">
+                        <i class="fas fa-align-left"></i>
+                        Descripción
+                    </label>
+                    <textarea id="descripcion" name="descripcion" required 
+                              placeholder="Ingresa la descripción de la noticia"
+                              rows="4"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="direccion">Dirección</label>
-                    <input type="text" id="direccion" name="direccion" required>
+                    <label for="imagen">
+                        <i class="fas fa-image"></i>
+                        URL de la Imagen
+                    </label>
+                    <input type="url" id="imagen" name="imagen" required 
+                           placeholder="https://ejemplo.com/imagen.jpg">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="categoria">
+                            <i class="fas fa-tag"></i>
+                            Categoría
+                        </label>
+                        <select id="categoria" name="categoria" required>
+                            <option value="">Selecciona una categoría</option>
+                            <option value="Tecnología">Tecnología</option>
+                            <option value="Deportes">Deportes</option>
+                            <option value="Cultura">Cultura</option>
+                            <option value="Política">Política</option>
+                            <option value="Economía">Economía</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha">
+                            <i class="fas fa-calendar"></i>
+                            Fecha
+                        </label>
+                        <input type="date" id="fecha" name="fecha" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="comuna">Comuna</label>
-                    <input type="text" id="comuna" name="comuna" required>
+                    <label for="link">
+                        <i class="fas fa-link"></i>
+                        URL de la Noticia
+                    </label>
+                    <input type="url" id="link" name="link" required 
+                           placeholder="https://ejemplo.com/noticia">
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" required>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="destacada" name="destacada">
+                    <label for="destacada">
+                        <i class="fas fa-star"></i>
+                        Marcar como noticia destacada
+                    </label>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        Agregar Noticia
+                    </button>
+                    <button type="button" class="preview-btn" onclick="previewJSON()">
+                        <i class="fas fa-eye"></i>
+                        Previsualizar JSON
+                    </button>
                 </div>
-
-                <div class="form-group">
-                    <label for="confirm-password">Confirmar Contraseña</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required>
-                </div>
-
-                <button type="submit" class="submit-btn">Crear Cuenta</button>
             </form>
-            <p class="login-link">¿Ya tienes una cuenta? <a href="#">Inicia sesión aquí</a></p>
+
+            <!-- Contenedor para previsualizar el JSON -->
+            <div id="jsonPreview" class="json-preview">
+                <h3>Vista Previa del JSON</h3>
+                <pre><code></code></pre>
+            </div>
         </div>
     </main>
 
     <div id="footer"></div>
 
+    <script src="assets/js/data/noticias.js"></script>
+    <script src="assets/js/auth.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+        // Función para generar ID único
+        function generateId() {
+            return noticias.length > 0 ? Math.max(...noticias.map(n => n.id)) + 1 : 1;
+        }
+
+        // Función para previsualizar el JSON
+        function previewJSON() {
+            const formData = new FormData(document.getElementById('newsForm'));
+            const noticiaData = {
+                id: generateId(),
+                titulo: formData.get('titulo'),
+                descripcion: formData.get('descripcion'),
+                imagen: formData.get('imagen'),
+                categoria: formData.get('categoria'),
+                fecha: formData.get('fecha'),
+                link: formData.get('link'),
+                destacada: formData.get('destacada') === 'on'
+            };
+
+            const jsonPreview = document.querySelector('#jsonPreview code');
+            jsonPreview.textContent = JSON.stringify(noticiaData, null, 2);
+            document.getElementById('jsonPreview').style.display = 'block';
+        }
+
+        // Manejar el envío del formulario
+        document.getElementById('newsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const noticiaData = {
+                id: generateId(),
+                titulo: formData.get('titulo'),
+                descripcion: formData.get('descripcion'),
+                imagen: formData.get('imagen'),
+                categoria: formData.get('categoria'),
+                fecha: formData.get('fecha'),
+                link: formData.get('link'),
+                destacada: formData.get('destacada') === 'on'
+            };
+
+            // Aquí puedes copiar el JSON generado al portapapeles
+            navigator.clipboard.writeText(JSON.stringify(noticiaData, null, 2))
+                .then(() => {
+                    alert('JSON copiado al portapapeles');
+                    this.reset();
+                    document.getElementById('jsonPreview').style.display = 'none';
+                })
+                .catch(err => {
+                    console.error('Error al copiar al portapapeles:', err);
+                    alert('Error al copiar el JSON. Por favor, cópialo manualmente.');
+                });
+        });
+    </script>
 </body>
 </html> 
