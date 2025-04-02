@@ -119,6 +119,17 @@
             return noticias.length > 0 ? Math.max(...noticias.map(n => n.id)) + 1 : 1;
         }
 
+        // Función para formatear el JSON sin comillas en las claves
+        function formatJSON(obj) {
+            return "    {\n" + Object.entries(obj)
+                .map(([key, value]) => {
+                    const formattedValue = typeof value === 'string' ? 
+                        `"${value}"` : value;
+                    return `        ${key}: ${formattedValue}`;
+                })
+                .join(',\n') + "\n    }";
+        }
+
         // Función para previsualizar el JSON
         function previewJSON() {
             const formData = new FormData(document.getElementById('newsForm'));
@@ -134,7 +145,7 @@
             };
 
             const jsonPreview = document.querySelector('#jsonPreview code');
-            jsonPreview.textContent = JSON.stringify(noticiaData, null, 2);
+            jsonPreview.textContent = formatJSON(noticiaData);
             document.getElementById('jsonPreview').style.display = 'block';
         }
 
@@ -154,8 +165,8 @@
                 destacada: formData.get('destacada') === 'on'
             };
 
-            // Aquí puedes copiar el JSON generado al portapapeles
-            navigator.clipboard.writeText(JSON.stringify(noticiaData, null, 2))
+            // Copiar al portapapeles con el formato correcto
+            navigator.clipboard.writeText(formatJSON(noticiaData))
                 .then(() => {
                     alert('JSON copiado al portapapeles');
                     this.reset();
