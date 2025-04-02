@@ -42,7 +42,7 @@ const noticias = [
         titulo: "Campeón chileno TCS CodeVita",
         descripcion: "El estudiante chileno Martín Andrighetti fue el ganador de la versión 2024 de TCS CodeVita, el mayor concurso de programación del mundo...",
         imagen: "assets/images/imagen3.jpg",
-        link: "#",
+        link: "https://www.trendtic.cl/2024/03/chileno-gana-el-titulo-de-mejor-programador-del-mundo-en-tcs-codevita-2024/",
         fecha: "2024-03-30",
         categoria: "Educación",
         destacada: true
