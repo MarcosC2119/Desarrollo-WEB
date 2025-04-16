@@ -2,6 +2,8 @@
 
 Un sitio web de noticias moderno y responsivo construido con HTML, CSS y JavaScript vanilla.
 
+DEMO: https://teclab.uct.cl/~marcos.castro/proyectos/Desarrollo-WEB/index.html
+
 ## 🚀 Características
 
 - Sistema de búsqueda en tiempo real
