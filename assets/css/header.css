@@ -154,4 +154,31 @@
         width: 100%;
         text-align: center;
     }
-} 
+}
+
+/* Search Container */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin: 0 1rem;
+}
+
+#searchInput {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+}
+
+#searchButton {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#searchButton:hover {
+    background-color: #0056b3;
+}

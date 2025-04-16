@@ -1,6 +1,15 @@
 /**
+ * @fileoverview Archivo principal que contiene la lógica core del sitio de noticias
+ * @version 1.0.0
+ * @author Tu Nombre
+ * @copyright 2024
+ */
+
+/**
  * Componentes principales de la interfaz
- * Utilizamos un patrón Module para encapsular los componentes reutilizables
+ * @namespace
+ * @property {string} header - Template del header
+ * @property {string} footer - Template del footer
  */
 const components = {
     header: `
@@ -12,6 +21,12 @@ const components = {
                     </div>
                     <div class="nav-links">
                         <a href="index.html" class="nav-link">Inicio</a>
+                        <div class="search-container">
+                            <input type="search" id="searchInput" placeholder="Buscar noticias...">
+                            <button id="searchButton">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                         <div class="category-filters">
                             <!-- Filtros dinámicos -->
                         </div>
@@ -57,14 +72,34 @@ const components = {
 };
 
 /**
- * Gestor de noticias
- * Implementa el patrón Module para manejar la lógica de noticias
+ * Gestor principal de noticias
+ * @namespace
  */
 const newsManager = {
+    /**
+     * Obtiene todas las noticias
+     * @returns {Array<Object>} Array de noticias
+     */
     getAllNoticias: () => noticias,
+
+    /**
+     * Obtiene las noticias destacadas
+     * @returns {Array<Object>} Array de noticias destacadas
+     */
     getDestacadas: () => noticias.filter(noticia => noticia.destacada),
+
+    /**
+     * Filtra noticias por categoría
+     * @param {string} categoria - Categoría a filtrar
+     * @returns {Array<Object>} Noticias filtradas
+     */
     getByCategoria: (categoria) => noticias.filter(noticia => noticia.categoria === categoria),
 
+    /**
+     * Formatea una fecha al formato español
+     * @param {Date|string} fecha - Fecha a formatear
+     * @returns {string} Fecha formateada
+     */
     formatearFecha: (fecha) => {
         return new Date(fecha).toLocaleDateString('es-ES', {
             year: 'numeric',
@@ -73,6 +108,11 @@ const newsManager = {
         });
     },
 
+    /**
+     * Genera el HTML para una noticia
+     * @param {Object} noticia - Objeto noticia
+     * @returns {string} HTML generado
+     */
     generarNoticiaHTML: (noticia) => `
         <article class="news-card">
             <img src="${noticia.imagen}" alt="${noticia.titulo}" loading="lazy">
@@ -90,6 +130,10 @@ const newsManager = {
         </article>
     `,
 
+    /**
+     * Renderiza las noticias en el grid
+     * @param {Array<Object>} [noticiasArray=noticias] - Array de noticias a renderizar
+     */
     renderNoticias: (noticiasArray = noticias) => {
         const newsGrid = document.querySelector('.news-grid');
         if (!newsGrid) return;
@@ -99,6 +143,9 @@ const newsManager = {
             .join('');
     },
 
+    /**
+     * Inicializa los filtros de categorías
+     */
     initFiltros: () => {
         const categorias = [...new Set(noticias.map(noticia => noticia.categoria))];
         const filtrosContainer = document.querySelector('.category-filters');
@@ -135,8 +182,8 @@ const newsManager = {
 };
 
 /**
- * Función para crear el menú móvil
- * Maneja la responsividad del sitio
+ * Crea e inicializa el menú móvil
+ * @function
  */
 function createMobileMenu() {
     const navbar = document.querySelector('.navbar');
@@ -174,4 +221,4 @@ document.addEventListener('DOMContentLoaded', () => {
         newsManager.renderNoticias();
         newsManager.initFiltros();
     }
-}); 
+});
